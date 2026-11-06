@@ -623,6 +623,17 @@ if(window.visualViewport)window.visualViewport.addEventListener('resize',layout)
 load(TRACKS[0]);curView='messy';layout();setButtons();setBtn($('sArr'),'front',10,10,24);setBtn($('sbtn'),'front',10,10,24);renderAll();paint();ringTo(180,true);
 /* test hooks */
 window.__rl={show:show,load:load,TRACKS:TRACKS,SILENCE:SILENCE,seek:function(s){pos=s;render()},setPlay:function(v){playing=v;setPP()},ring:function(a){ringTo(a,true)},openMenu:openMenu,state:function(){return{cur:cur,view:curView,zoomT:zoomT,arr:arrT[0],t:T.title,ring:Wh.a,sel:Wh.sel,H:H,SC:SC,time:$('time').textContent,playing:playing}},menuPress:function(){$('mAbout').classList.add('pressed')}};
+<style>
+#mSingles,#mWrap img:nth-of-type(2){display:none!important}
+#mAbout{top:213px!important;height:253px!important}
+#mSil{top:466px!important;height:253px!important}
+#mAbout .band,#mSil .band{height:253px!important}
+#mAbout .band{left:1px!important}
+#mSil .band{left:0!important}
+#mWrap img:nth-of-type(1){top:315.95px!important}
+#mWrap img:nth-of-type(3){top:574.84px!important}
+</style>
+
 </script>
 </body>
 </html>
