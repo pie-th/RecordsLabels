@@ -634,6 +634,48 @@ window.__rl={show:show,load:load,TRACKS:TRACKS,SILENCE:SILENCE,seek:function(s){
 #mWrap img:nth-of-type(3){top:574.84px!important}
 </style>
 
+ <style>
+#wheelArt{position:absolute;z-index:19;pointer-events:none;transform-origin:0 0}
+#wheelArt svg{display:block;width:259px;height:259px}
+#player.isDark #wheelArt{display:none}
+#player:not(.isDark) #ring{mix-blend-mode:hard-light}
+#player:not(.isDark) #ring circle{fill:#c9c9c9}
+.word.sel img{filter:none}
+#player.isDark .word.sel img{filter:brightness(0) invert(.827)}
+#player:not(.dropping) #pcover{mix-blend-mode:normal}
+#player:not(.dropping) #pcover img{filter:brightness(.853) contrast(1.1725)}
+</style>
+<script>
+(function(){
+  var REST=233,skip=false,art=document.createElement('div');
+  art.id='wheelArt';
+  art.innerHTML='<svg viewBox="0 0 259 259" fill="none"><circle cx="129.5" cy="129.5" r="110.5" stroke="#C0C0C0" stroke-opacity=".12" stroke-width="38" stroke-linecap="round" stroke-dasharray="124 49.6" stroke-dashoffset="62"/></svg>';
+  document.getElementById('player').insertBefore(art,document.getElementById('wheel'));
+  function place(){
+    var k=Wh.R/116;
+    art.style.left=(214.5-129.5*k)+'px';art.style.top=(Wh.cy+.5-129.5*k)+'px';art.style.transform='scale('+k+')';
+    drawRing();
+  }
+  var oldDraw=drawRing;
+  drawRing=function(){
+    var R=Wh.R;Wh.R=R*.9655;oldDraw();Wh.R=R;
+  };
+  var oldRing=ringTo;
+  ringTo=function(deg,now){return oldRing(now&&deg===180?REST:deg,now)};
+  var oldAct=activate;
+  activate=function(i){
+    if(skip){skip=false;return}
+    if(Wh.a===REST)i=2;
+    oldAct(i);
+  };
+  var z=document.getElementById('wheel');
+  z.addEventListener('pointerup',function(){skip=Wh.moved},true);
+  window.addEventListener('resize',place);
+  if(window.visualViewport)window.visualViewport.addEventListener('resize',place);
+  place();ringTo(180,true);
+})();
+</script>
+
 </script>
 </body>
 </html>
